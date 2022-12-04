@@ -1,5 +1,6 @@
-name: # TODO
+name: WorldEditBrushPreviewer
 version: '1.0.0'
 main: love.chihuyu.Plugin
 authors: [ Hirosuke ]
-depend: [CommandAPI]
+depend: [CommandAPI, WorldEdit, ProtocolLib]
+api-version: 1.19
