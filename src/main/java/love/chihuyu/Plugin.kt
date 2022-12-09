@@ -1,7 +1,5 @@
 package love.chihuyu
 
-import com.comphenix.protocol.ProtocolLibrary
-import com.comphenix.protocol.ProtocolManager
 import love.chihuyu.commands.CommandWEV
 import love.chihuyu.commands.WEVIgnoreAir
 import love.chihuyu.commands.WEVToggle
@@ -16,16 +14,11 @@ class Plugin : JavaPlugin(), Listener {
 
     companion object {
         lateinit var plugin: JavaPlugin
-        lateinit var protocol: ProtocolManager
         val prefix = "${ChatColor.GOLD}[WEV]${ChatColor.RESET}"
     }
 
     init {
         plugin = this
-    }
-
-    override fun onLoad() {
-        protocol = ProtocolLibrary.getProtocolManager()
     }
 
     override fun onEnable() {
