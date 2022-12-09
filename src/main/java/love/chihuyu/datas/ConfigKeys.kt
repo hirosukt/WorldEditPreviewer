@@ -2,5 +2,6 @@ package love.chihuyu.datas
 
 enum class ConfigKeys(val key: String) {
     MOVE_CHECK_LATENCY("moveCheckLatencyTick"),
-    ACTIVATED_PLAYERS("activatedPlayers")
+    ACTIVATED_PLAYERS("activatedPlayers"),
+    AIR_IGNORED_PLAYERS("airIgnoredPlayers")
 }

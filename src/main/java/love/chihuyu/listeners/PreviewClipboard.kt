@@ -4,6 +4,7 @@ import com.sk89q.worldedit.EmptyClipboardException
 import com.sk89q.worldedit.WorldEdit
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import love.chihuyu.Plugin.Companion.plugin
+import love.chihuyu.commands.WEVIgnoreAir
 import love.chihuyu.commands.WEVToggle
 import love.chihuyu.datas.ConfigKeys
 import love.chihuyu.datas.PermissionNodes
@@ -48,19 +49,20 @@ object PreviewClipboard : Listener {
                 player.location.z - (clipboardHolder.transform.apply(origin.toVector3()).z - z)
             )
 
+            previewedBlocks[player]?.forEach { player.sendBlockChange(it.key, it.value) }
+            previewedBlocks[player]?.clear()
+
             val previewed = mutableMapOf<Location, BlockData>()
             clipboard.region.forEach { block ->
                 val transformedBlock = clipboardHolder.transform.apply(block.toVector3())
                 val loc = formatLoc(transformedBlock.x, transformedBlock.y, transformedBlock.z)
                 val blockData = BukkitAdapter.adapt(clipboard.getBlock(block))
 
-                if (blockData.material == Material.AIR)
+                if (blockData.material == Material.AIR && player.uniqueId in WEVIgnoreAir.airIgnored) return@forEach
                 player.sendBlockChange(loc, blockData)
                 previewed[loc] = player.world.getBlockData(loc)
             }
 
-            previewedBlocks[player]?.forEach { player.sendBlockChange(it.key, it.value) }
-            previewedBlocks[player]?.clear()
             previewedBlocks[player] = previewed
         }
 

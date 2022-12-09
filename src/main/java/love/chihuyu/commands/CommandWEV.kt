@@ -9,6 +9,7 @@ object CommandWEV {
         .withAliases("wev", "wv")
         .withPermission(PermissionNodes.CMD_ROOT.node)
         .withSubcommands(
-            WEVToggle.main
+            WEVToggle.main,
+            WEVIgnoreAir.main
         )
 }

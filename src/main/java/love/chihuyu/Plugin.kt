@@ -3,6 +3,7 @@ package love.chihuyu
 import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.ProtocolManager
 import love.chihuyu.commands.CommandWEV
+import love.chihuyu.commands.WEVIgnoreAir
 import love.chihuyu.commands.WEVToggle
 import love.chihuyu.datas.ConfigKeys
 import love.chihuyu.listeners.PreviewClipboard
@@ -41,6 +42,10 @@ class Plugin : JavaPlugin(), Listener {
 
         config.getList(ConfigKeys.ACTIVATED_PLAYERS.key)?.forEach {
             WEVToggle.activatedPlayers.add(UUID.fromString(it.toString()))
+        }
+
+        config.getList(ConfigKeys.AIR_IGNORED_PLAYERS.key)?.forEach {
+            WEVIgnoreAir.airIgnored.add(UUID.fromString(it.toString()))
         }
     }
 }

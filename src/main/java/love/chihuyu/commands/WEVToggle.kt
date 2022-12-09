@@ -19,7 +19,7 @@ object WEVToggle {
 
             sender.sendMessage("$prefix Toggled previewing. ${ChatColor.GRAY}(${if (!state) "On" else "Off"})")
 
-            plugin.config.set(ConfigKeys.ACTIVATED_PLAYERS.key, activatedPlayers)
+            plugin.config.set(ConfigKeys.ACTIVATED_PLAYERS.key, activatedPlayers.map { it.toString() })
             plugin.saveConfig()
         })
 }
