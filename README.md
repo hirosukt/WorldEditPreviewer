@@ -15,14 +15,14 @@ Remove air block from preview.
 
 ## Permissions
 
-* `worldeditvisualizer.use`
+* `worldeditvisualizer.use`  
 Use previews.
 
-* `worldeditvisualizer.worldeditvisualizer`
+* `worldeditvisualizer.worldeditvisualizer`  
 Use /worldeditvisualizer.
 
-* `worldeditvisualizer.worldeditvisualizer.toggle`
+* `worldeditvisualizer.worldeditvisualizer.toggle`  
 Use /wev toggle.
 
-* `worldeditvisualizer.worldeditvisualizer.ignoreAir`
+* `worldeditvisualizer.worldeditvisualizer.ignoreAir`  
 Use /wev ignoreAir.
