@@ -3,8 +3,8 @@ package love.chihuyu.listeners
 import com.sk89q.worldedit.EmptyClipboardException
 import com.sk89q.worldedit.WorldEdit
 import com.sk89q.worldedit.bukkit.BukkitAdapter
-import com.sk89q.worldedit.regions.TransformRegion
 import love.chihuyu.Plugin.Companion.plugin
+import love.chihuyu.commands.WEVToggle
 import love.chihuyu.datas.ConfigKeys
 import love.chihuyu.datas.PermissionNodes
 import love.chihuyu.utils.runTaskLater
@@ -19,14 +19,14 @@ import org.bukkit.event.player.PlayerMoveEvent
 object PreviewClipboard : Listener {
 
     private val cooltimed = mutableSetOf<Player>()
-
     private val previewedBlocks = mutableMapOf<Player, MutableMap<Location, BlockData>>()
 
     @EventHandler
     fun moveCheck(e: PlayerMoveEvent) {
         val player = e.player
 
-        if (!player.hasPermission(PermissionNodes.USE.node)) return
+        if (!player.hasPermission(PermissionNodes.USE.node)
+            || player.uniqueId !in WEVToggle.activatedPlayers) return
 
         val latencied = plugin.config.getInt(ConfigKeys.MOVE_CHECK_LATENCY.key)
         val session = WorldEdit.getInstance().sessionManager.getIfPresent(BukkitAdapter.adapt(player)) ?: return
@@ -38,7 +38,6 @@ object PreviewClipboard : Listener {
             return
         }
         val clipboard = clipboardHolder.clipboard ?: return
-        val transformed = TransformRegion(clipboard.region, clipboardHolder.transform)
 
         fun showPrev() {
             val origin = clipboard.origin
