@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 object PreviewClipboard : Listener {
 
     private val cooltimed = mutableSetOf<Player>()
-    private val previewedBlocks = mutableMapOf<Player, MutableMap<Location, BlockData>>()
+    private val previewBlocks = mutableMapOf<Player, MutableMap<Location, BlockData>>()
 
     @EventHandler
     fun moveCheck(e: PlayerMoveEvent) {
@@ -32,10 +32,10 @@ object PreviewClipboard : Listener {
         val latencied = plugin.config.getInt(ConfigKeys.MOVE_CHECK_LATENCY.key)
         val session = WorldEdit.getInstance().sessionManager.getIfPresent(BukkitAdapter.adapt(player)) ?: return
         val clipboardHolder = try { session.clipboard } catch (e: EmptyClipboardException) {
-            previewedBlocks[player]?.forEach {
+            previewBlocks[player]?.forEach {
                 player.sendBlockChange(it.key, it.value)
             }
-            previewedBlocks[player] = mutableMapOf()
+            previewBlocks[player] = mutableMapOf()
             return
         }
         val clipboard = clipboardHolder.clipboard ?: return
@@ -49,10 +49,10 @@ object PreviewClipboard : Listener {
                 player.location.z - (clipboardHolder.transform.apply(origin.toVector3()).z - z)
             )
 
-            previewedBlocks[player]?.forEach { player.sendBlockChange(it.key, it.value) }
-            previewedBlocks[player]?.clear()
+            previewBlocks[player]?.forEach { player.sendBlockChange(it.key, it.value) }
+            previewBlocks[player]?.clear()
 
-            val previewed = mutableMapOf<Location, BlockData>()
+            val preview = mutableMapOf<Location, BlockData>()
             clipboard.region.forEach { block ->
                 val transformedBlock = clipboardHolder.transform.apply(block.toVector3())
                 val loc = formatLoc(transformedBlock.x, transformedBlock.y, transformedBlock.z)
@@ -60,10 +60,10 @@ object PreviewClipboard : Listener {
 
                 if (blockData.material == Material.AIR && player.uniqueId in WEVIgnoreAir.airIgnored) return@forEach
                 player.sendBlockChange(loc, blockData)
-                previewed[loc] = player.world.getBlockData(loc)
+                preview[loc] = player.world.getBlockData(loc)
             }
 
-            previewedBlocks[player] = previewed
+            previewBlocks[player] = preview
         }
 
         if (latencied > -1) {
