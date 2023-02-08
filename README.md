@@ -1,5 +1,5 @@
-# WorldEditVisualizer
-Visualize worldedit operation affects with virtual blocks.
+# WorldEditPreviewer
+Preview worldedit operation affects with virtual blocks.
 
 ## Depends
 * [CommandAPI](https://www.spigotmc.org/resources/api-commandapi-1-13-1-19-2.62353/)
