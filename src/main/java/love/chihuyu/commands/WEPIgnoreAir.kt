@@ -8,7 +8,7 @@ import love.chihuyu.datas.ConfigKeys
 import org.bukkit.ChatColor
 import java.util.*
 
-object WEVIgnoreAir {
+object WEPIgnoreAir {
 
     val airIgnored = mutableSetOf<UUID>()
 

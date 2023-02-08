@@ -4,8 +4,8 @@ import com.sk89q.worldedit.EmptyClipboardException
 import com.sk89q.worldedit.WorldEdit
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import love.chihuyu.Plugin.Companion.plugin
-import love.chihuyu.commands.WEVIgnoreAir
-import love.chihuyu.commands.WEVToggle
+import love.chihuyu.commands.WEPIgnoreAir
+import love.chihuyu.commands.WEPToggle
 import love.chihuyu.datas.ConfigKeys
 import love.chihuyu.datas.PermissionNodes
 import love.chihuyu.utils.runTaskLater
@@ -27,7 +27,7 @@ object PreviewClipboard : Listener {
         val player = e.player
 
         if (!player.hasPermission(PermissionNodes.USE.node)
-            || player.uniqueId !in WEVToggle.activatedPlayers) return
+            || player.uniqueId !in WEPToggle.activatedPlayers) return
 
         val latencied = plugin.config.getInt(ConfigKeys.MOVE_CHECK_LATENCY.key)
         val session = WorldEdit.getInstance().sessionManager.getIfPresent(BukkitAdapter.adapt(player)) ?: return
@@ -58,7 +58,7 @@ object PreviewClipboard : Listener {
                 val loc = formatLoc(transformedBlock.x, transformedBlock.y, transformedBlock.z)
                 val blockData = BukkitAdapter.adapt(clipboard.getBlock(block))
 
-                if (blockData.material == Material.AIR && player.uniqueId in WEVIgnoreAir.airIgnored) return@forEach
+                if (blockData.material == Material.AIR && player.uniqueId in WEPIgnoreAir.airIgnored) return@forEach
                 player.sendBlockChange(loc, blockData)
                 preview[loc] = player.world.getBlockData(loc)
             }

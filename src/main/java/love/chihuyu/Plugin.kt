@@ -1,8 +1,8 @@
 package love.chihuyu
 
 import love.chihuyu.commands.CommandWEV
-import love.chihuyu.commands.WEVIgnoreAir
-import love.chihuyu.commands.WEVToggle
+import love.chihuyu.commands.WEPIgnoreAir
+import love.chihuyu.commands.WEPToggle
 import love.chihuyu.datas.ConfigKeys
 import love.chihuyu.listeners.PreviewClipboard
 import org.bukkit.ChatColor
@@ -14,7 +14,7 @@ class Plugin : JavaPlugin(), Listener {
 
     companion object {
         lateinit var plugin: JavaPlugin
-        val prefix = "${ChatColor.GOLD}[WEV]${ChatColor.RESET}"
+        val prefix = "${ChatColor.GOLD}[WEP]${ChatColor.RESET}"
     }
 
     init {
@@ -34,11 +34,11 @@ class Plugin : JavaPlugin(), Listener {
         CommandWEV.main.register()
 
         config.getList(ConfigKeys.ACTIVATED_PLAYERS.key)?.forEach {
-            WEVToggle.activatedPlayers.add(UUID.fromString(it.toString()))
+            WEPToggle.activatedPlayers.add(UUID.fromString(it.toString()))
         }
 
         config.getList(ConfigKeys.AIR_IGNORED_PLAYERS.key)?.forEach {
-            WEVIgnoreAir.airIgnored.add(UUID.fromString(it.toString()))
+            WEPIgnoreAir.airIgnored.add(UUID.fromString(it.toString()))
         }
     }
 }

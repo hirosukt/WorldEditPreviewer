@@ -5,11 +5,11 @@ import love.chihuyu.datas.PermissionNodes
 
 object CommandWEV {
 
-    val main: CommandAPICommand = CommandAPICommand("worldeditvisualizer")
-        .withAliases("wev", "wv")
+    val main: CommandAPICommand = CommandAPICommand("worldeditpreviewer")
+        .withAliases("wep", "wp")
         .withPermission(PermissionNodes.CMD_ROOT.node)
         .withSubcommands(
-            WEVToggle.main,
-            WEVIgnoreAir.main
+            WEPToggle.main,
+            WEPIgnoreAir.main
         )
 }
